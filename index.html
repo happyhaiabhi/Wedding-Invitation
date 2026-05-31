@@ -753,7 +753,7 @@
     @media (max-width: 780px) {
       .events-grid { flex-direction: column; align-items: center; }
       .event-card, .event-card.center-event { flex: 0 0 auto; width: min(340px, 92vw); }
-      .event-card.center-event { order: -1; }
+      /* Reception stays at 2nd position — no reordering */
     }
 
     .event-icon {
@@ -1046,6 +1046,260 @@
     ========================================================= */
     .t-center { text-align: center; }
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    /* =========================================================
+       COMPREHENSIVE MOBILE RESPONSIVENESS
+       Covers: notch phones, tablets, 768px → 360px
+    ========================================================= */
+
+    /* Safe-area insets for notched / dynamic-island phones */
+    @supports (padding: env(safe-area-inset-top)) {
+      #nav {
+        padding-left: max(3rem, env(safe-area-inset-left));
+        padding-right: max(3rem, env(safe-area-inset-right));
+      }
+      footer {
+        padding-bottom: max(3rem, calc(env(safe-area-inset-bottom) + 1rem));
+      }
+      #scroll-top {
+        bottom: max(2rem, calc(env(safe-area-inset-bottom) + .75rem));
+        right:  max(2rem, calc(env(safe-area-inset-right)  + .5rem));
+      }
+      #mobile-nav {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+    }
+
+    /* --- TABLET (≤ 900px) ----------------------------------- */
+    @media (max-width: 900px) {
+      .inner { max-width: 100%; }
+      .events-grid { gap: 18px; }
+      .event-card { flex: 0 0 280px; }
+      .event-card.center-event { flex: 0 0 310px; }
+      .venue-layout { gap: 3rem; }
+    }
+
+    /* --- MOBILE (≤ 768px) ----------------------------------- */
+    @media (max-width: 768px) {
+      #nav { padding: 1rem 1.4rem; }
+      #nav.scrolled { padding: .8rem 1.4rem; }
+
+      @supports (padding: env(safe-area-inset-left)) {
+        #nav {
+          padding-left: max(1.4rem, env(safe-area-inset-left));
+          padding-right: max(1.4rem, env(safe-area-inset-right));
+        }
+      }
+
+      .inner { padding: 0 1.2rem; }
+
+      #couple  { padding: 6rem 0 5rem; }
+      #countdown { padding: 4rem 0; }
+      #story   { padding: 6rem 0; }
+      #events  { padding: 6rem 0; }
+      #venue   { padding: 6rem 0; }
+      #wishes  { padding: 6rem 0; }
+      footer   { padding: 4rem 0 2.5rem; }
+
+      .couple-quote { padding: 0 .75rem; }
+      .footer-names { font-size: clamp(2.4rem, 9vw, 4rem); }
+
+      .events-head  { margin-bottom: 3rem; }
+      .story-head   { margin-bottom: 3.5rem; }
+      .wishes-head  { margin-bottom: 3rem; }
+    }
+
+    /* --- SMALL-MEDIUM (≤ 600px) ----------------------------- */
+    @media (max-width: 600px) {
+      #nav { padding: .9rem 1.1rem; }
+      .nav-brand { font-size: 1.65rem; }
+
+      .inner { padding: 0 1rem; }
+
+      /* Envelope */
+      .env-content { padding: 235px 26px 48px; }
+      .env-btn { padding: .85rem 2rem; font-size: .64rem; gap: .55rem; }
+
+      /* Couple section */
+      #couple { padding: 5rem 0 4rem; }
+      .photo-img {
+        width: min(230px, 70vw);
+        height: min(230px, 70vw);
+      }
+      .photo-ring-1 { inset: -10px; }
+      .photo-ring-2 { inset: -20px; }
+      .photo-ring-3 { inset: -30px; }
+
+      /* Countdown */
+      #countdown { padding: 3.5rem 0; }
+      .cd-label   { margin-bottom: 2rem; }
+      .cd-grid    { gap: .55rem; }
+      .cd-num     { font-size: clamp(2.8rem, 9.5vw, 4rem); }
+      .cd-sep     { font-size: clamp(1.8rem, 5vw, 3rem); }
+      .cd-item    { min-width: 58px; }
+
+      /* Events */
+      .events-grid { gap: 14px; }
+      .event-card,
+      .event-card.center-event {
+        padding: 2.2rem 1.5rem 2rem;
+      }
+      .event-icon { width: 54px; height: 54px; }
+
+      /* Venue */
+      .venue-layout { gap: 2.5rem; }
+      .venue-map-box { aspect-ratio: auto; min-height: 210px; }
+
+      /* Wishes / guestbook form — stack vertically */
+      .wish-form {
+        flex-direction: column;
+        border: none;
+        gap: 0;
+      }
+      .wish-name-input {
+        flex: none;
+        border: 1px solid rgba(201,168,76,.25);
+        border-bottom: none;
+        border-right: none;
+      }
+      .wish-msg-input {
+        flex: none;
+        border: 1px solid rgba(201,168,76,.25);
+        border-bottom: none;
+        padding: .95rem 1.2rem;
+      }
+      .wish-send-btn {
+        border: 1px solid rgba(201,168,76,.25);
+        padding: 1rem;
+        text-align: center;
+      }
+      .wishes-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+
+      /* Footer */
+      footer { padding: 3.5rem 0 2rem; }
+      .footer-names { font-size: clamp(2rem, 10vw, 3.5rem); }
+      .footer-date  { font-size: .85rem; }
+    }
+
+    /* --- SMALL PHONES (≤ 430px) — iPhone SE+, most Androids -- */
+    @media (max-width: 430px) {
+      #nav { padding: .8rem .9rem; }
+      .nav-brand { font-size: 1.5rem; }
+      .nav-actions { gap: .5rem; }
+      .nav-icon-btn { width: 32px; height: 32px; }
+
+      .inner { padding: 0 .9rem; }
+
+      /* Envelope */
+      .env-content { padding: 225px 16px 40px; }
+      .env-names   { font-size: clamp(2.4rem, 8.5vw, 3.5rem); }
+      .env-date    { font-size: .92rem; }
+      .env-btn     { padding: .75rem 1.5rem; }
+
+      /* Couple */
+      #couple { padding: 4.5rem 0 3.5rem; }
+      .photo-img {
+        width: min(200px, 66vw);
+        height: min(200px, 66vw);
+      }
+      .photo-frame { margin: 2.5rem auto !important; }
+      .couple-quote { font-size: .87rem; }
+      .couple-connector { font-size: clamp(1.15rem, 3.6vw, 1.6rem); }
+
+      /* Countdown */
+      #countdown { padding: 3rem .75rem; }
+      .cd-grid  { gap: .3rem; flex-wrap: nowrap; }
+      .cd-num   { font-size: clamp(2.2rem, 8.5vw, 3.5rem); }
+      .cd-sep   { font-size: clamp(1.4rem, 4vw, 2rem); padding-top: .25rem; }
+      .cd-item  { min-width: 48px; }
+      .cd-unit  { font-size: .48rem; letter-spacing: .2em; }
+
+      /* Story */
+      #story { padding: 4.5rem 0; }
+      .story-head { margin-bottom: 2.5rem; }
+
+      /* Events */
+      #events { padding: 4.5rem 0; }
+      .events-head { margin-bottom: 2.5rem; }
+      .event-card,
+      .event-card.center-event {
+        width: min(296px, 96vw) !important;
+        padding: 2rem 1.2rem 1.8rem;
+      }
+      .event-name { font-size: 1.65rem; }
+      .center-event .event-name { font-size: 2rem; }
+      .event-detail { font-size: .74rem; }
+
+      /* Venue */
+      #venue { padding: 4.5rem 0; }
+      .venue-name { font-size: clamp(1.6rem, 5.5vw, 2.4rem); }
+      .venue-addr { font-size: .78rem; }
+      .venue-map-box { min-height: 195px; }
+      .venue-dir-btn { padding: .85rem 1.6rem; font-size: .63rem; }
+
+      /* Wishes */
+      #wishes { padding: 4.5rem 0; }
+      .sec-title { font-size: clamp(1.75rem, 5.5vw, 2.5rem); }
+
+      /* Footer */
+      footer { padding: 3rem 0 2rem; }
+      .footer-names { font-size: clamp(1.8rem, 9.5vw, 2.8rem); }
+
+      /* Scroll-to-top */
+      #scroll-top { bottom: 1.2rem; right: 1.2rem; width: 38px; height: 38px; }
+    }
+
+    /* --- EXTRA SMALL (≤ 375px) — iPhone SE 2016, narrow Androids */
+    @media (max-width: 375px) {
+      .inner { padding: 0 .75rem; }
+
+      .env-content { padding: 215px 12px 36px; }
+      .env-names   { font-size: clamp(2rem, 9vw, 3rem); }
+
+      .cd-num  { font-size: clamp(2rem, 8vw, 3rem); }
+      .cd-item { min-width: 42px; }
+      .cd-sep  { font-size: clamp(1.2rem, 3.5vw, 1.8rem); }
+
+      .event-card,
+      .event-card.center-event {
+        width: min(270px, 97vw) !important;
+        padding: 1.8rem 1rem 1.6rem;
+      }
+
+      .tl-card  { padding: 1.2rem 1rem; }
+      .tl-title { font-size: 1.15rem; }
+      .tl-desc  { font-size: .78rem; }
+
+      .wish-name-input,
+      .wish-msg-input { font-size: .8rem; padding: .85rem .9rem; }
+    }
+
+    /* --- SMALLEST (≤ 360px) — very old / budget devices ---------- */
+    @media (max-width: 360px) {
+      .inner { padding: 0 .65rem; }
+
+      .nav-brand { font-size: 1.35rem; }
+
+      .env-content { padding: 210px 10px 34px; }
+      .env-names   { font-size: clamp(1.85rem, 9vw, 2.8rem); }
+
+      .cd-grid  { gap: .2rem; }
+      .cd-num   { font-size: clamp(1.9rem, 7.5vw, 2.8rem); }
+      .cd-item  { min-width: 38px; }
+      .cd-unit  { font-size: .44rem; }
+      .cd-sep   { font-size: clamp(1.1rem, 3.2vw, 1.6rem); }
+
+      .photo-img {
+        width: min(180px, 64vw);
+        height: min(180px, 64vw);
+      }
+
+      .event-card,
+      .event-card.center-event {
+        width: 97vw !important;
+        padding: 1.6rem .9rem 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1553,10 +1807,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                 <span>Valet &amp; self-parking available on site</span>
               </div>
-              <div class="venue-meta-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span>Special room rates available for our guests</span>
-              </div>
+        
             </div>
             <a href="https://maps.app.goo.gl/cg6bRsL1zrTpeZB37?g_st=aw" target="_blank" rel="noopener noreferrer" class="venue-dir-btn">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
